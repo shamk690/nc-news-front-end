@@ -1,0 +1,30 @@
+import React, { Component } from "react";
+import { getSingleArticle } from "../Api";
+
+export default class SingleArticle extends Component {
+  state = {
+    singleArticle: []
+  };
+
+  render() {
+    //console.log("dfdfds", this.state.author);
+    return (
+      <div>
+        <p>{this.state.singleArticle.title}</p>
+        <p>{this.state.singleArticle.author}</p>
+        <p>{this.state.singleArticle.article_id}</p>
+        <p>{this.state.singleArticle.topic}</p>
+        <p>{this.state.singleArticle.created_at}</p>
+        <p>{this.state.singleArticle.votes}</p>
+        <p>{this.state.singleArticle.body}</p>
+      </div>
+    );
+  }
+
+  componentDidMount() {
+    getSingleArticle(this.props.article_id).then(article => {
+      console.log("article single  ", article);
+      this.setState({ singleArticle: article });
+    });
+  }
+}

@@ -1,0 +1,25 @@
+body {
+  background: #a7bdb6;
+}
+
+h1 {
+  color: white;
+}
+
+.mainContainer {
+  width: 100%;
+}
+
+.topicContainer {
+  float: right;
+  width: 40%;
+  background: blue;
+}
+
+#articleContainer {
+  width: 60%;
+  margin: 1em;
+  border: solid white;
+  background: rgb(230, 170, 170);
+  color: black;
+}
