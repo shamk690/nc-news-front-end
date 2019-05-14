@@ -26,3 +26,11 @@ export const getSingleArticle = id => {
     return article;
   });
 };
+export const getCommentByArticleId = id => {
+  return axios
+    .get(`${url}/articles/${id}/comments`)
+    .then(({ data: { comments } }) => {
+      console.log("comments", comments);
+      return comments;
+    });
+};

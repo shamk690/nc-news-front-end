@@ -11,12 +11,17 @@ export default class Topics extends Component {
 
   render() {
     return (
-      <div className="mainContainer">
-        <div>
-          <p>Topics from article List</p>
-          <p>{this.state.topics.slug}</p>
-          <p>{this.state.topics.description}</p>
-        </div>
+      <div>
+        <p>Topics from article List</p>
+
+        {this.state.topics.map(topic => {
+          return (
+            <div>
+              <p>{topic.slug}</p>
+              <p> {topic.description}</p>
+            </div>
+          );
+        })}
       </div>
     );
   }

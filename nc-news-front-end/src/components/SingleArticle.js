@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getSingleArticle } from "../Api";
+import Comments from "./Comments";
 
 export default class SingleArticle extends Component {
   state = {
@@ -17,6 +18,7 @@ export default class SingleArticle extends Component {
         <p>{this.state.singleArticle.created_at}</p>
         <p>{this.state.singleArticle.votes}</p>
         <p>{this.state.singleArticle.body}</p>
+        <Comments id={this.props.article_id} />
       </div>
     );
   }

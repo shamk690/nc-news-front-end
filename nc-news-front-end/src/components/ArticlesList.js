@@ -12,10 +12,12 @@ export default class ArticleList extends Component {
   render() {
     return (
       <div className="mainContainer">
-        <ul>
+        <ul className="articleContainer">
           {this.state.articleList.map(article => {
             return (
-              <div id="articleContainer" key={article.article_id}>
+              <div>
+                {" "}
+                <p key={article.article_id} />
                 <Link to={`/articles/${article.article_id}`}>
                   <li>{article.title}</li>
                 </Link>
@@ -24,7 +26,9 @@ export default class ArticleList extends Component {
             );
           })}
         </ul>
-        <Topics />
+        <div className="topicsContainer">
+          <Topics />
+        </div>
       </div>
     );
   }

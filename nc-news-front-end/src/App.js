@@ -7,6 +7,7 @@ import HomePage from "./components/HomePage";
 import ArticleList from "./components/ArticlesList";
 import SingleArticle from "./components/SingleArticle";
 import Topics from "./components/Topics";
+import Comments from "./components/Comments";
 
 class App extends Component {
   state = {};
@@ -23,6 +24,7 @@ class App extends Component {
           <ArticleList path="/articles" />
           <SingleArticle path="articles/:article_id" />
           <Topics path="/topics" />
+          <Comments path="/articles/:article_id/comments" />
         </Router>
       </div>
     );

@@ -7,19 +7,16 @@ h1 {
 }
 
 .mainContainer {
-  width: 100%;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-template-areas: "left right";
 }
 
-.topicContainer {
-  float: right;
-  width: 40%;
-  background: blue;
+.articleContainer {
+  grid-area: left;
 }
-
-#articleContainer {
-  width: 60%;
-  margin: 1em;
-  border: solid white;
-  background: rgb(230, 170, 170);
-  color: black;
+.topicsContainer {
+  grid-area: right;
+  background: cadetblue;
+  padding: 2em;
 }
