@@ -3,12 +3,10 @@ import Header from "./components/Header";
 // import "./App.css";
 import { Router, Link } from "@reach/router";
 import * as Api from "./Api";
-import HomePage from "./components/HomePage";
 import ArticleList from "./components/ArticlesList";
 import SingleArticle from "./components/SingleArticle";
 import Topics from "./components/Topics";
 import Comments from "./components/Comments";
-import ArticlesByTopic from "./components/ArticlesByTopic";
 
 class App extends Component {
   state = {};
@@ -20,13 +18,14 @@ class App extends Component {
       <div className="App">
         <Header />
         <Router>
-          <HomePage path="/" />
+          <ArticleList path="/" />
 
           <ArticleList path="/articles" />
-          <SingleArticle path="articles/:article_id" />
-          <Topics path="/topics" />
+          <ArticleList path="/topics/:topic" />
+
+          <SingleArticle path="/articles/:article_id" />
+          {/* <Topics path="/topics" /> */}
           <Comments path="/articles/:article_id/comments" />
-          <ArticlesByTopic path="ArticlesByTopic" />
         </Router>
       </div>
     );

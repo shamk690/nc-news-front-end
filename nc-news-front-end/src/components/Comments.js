@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getCommentByArticleId } from "../Api";
+import Voters from "./Voters";
 
 export default class Comments extends Component {
   state = {
@@ -10,13 +11,18 @@ export default class Comments extends Component {
       <div>
         <h1>Comments</h1>
         {this.state.comments.map(comment => {
+          console.log(comment);
           return (
             <div>
-              <p>{comment.comment_id}</p>
-              <p>{comment.created_at}</p>
-              <p>{comment.author}</p>
+              {/* <p>{comment.comment_id}</p> */}
+              {/* <p>{comment.created_at}</p> */}
+              <p>commented by: {comment.author}</p>
               <p>{comment.body}</p>
-              <p>{comment.votes}</p>
+              <Voters
+                votes={comment.votes}
+                id={comment.comment_id}
+                // type="comment"
+              />
             </div>
           );
         })}

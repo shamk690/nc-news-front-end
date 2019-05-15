@@ -15,13 +15,14 @@ export default class ArticleList extends Component {
         <ul className="articleContainer">
           {this.state.articleList.map(article => {
             return (
-              <div>
+              <div key={article.article_id}>
                 {" "}
-                <p key={article.article_id} />
+                <p />
                 <Link to={`/articles/${article.article_id}`}>
                   <li>{article.title}</li>
                 </Link>
                 <p>{article.body}</p>
+                <p>From {article.topic}</p>
               </div>
             );
           })}
@@ -34,9 +35,24 @@ export default class ArticleList extends Component {
   }
 
   componentDidMount() {
-    getArticleList().then(articles => {
+    console.log(this.props.path);
+    const query = { topic: this.props.topic };
+    getArticleList(query).then(articles => {
       this.setState({ articleList: articles });
       // console.log("mounted ", articles);
     });
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log(this.props);
+    if (prevProps.topic !== this.props.topic) {
+      const query = { topic: this.props.topic };
+      getArticleList(query).then(articles => {
+        this.setState({ articleList: articles });
+        // console.log("mounted ", articles);
+      });
+    }
+  };
+
+  getArticles() {}
 }

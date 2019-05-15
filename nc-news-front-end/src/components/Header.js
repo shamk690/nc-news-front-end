@@ -16,9 +16,9 @@ export default class Header extends Component {
               <Link to="/articles">
                 <li>Articles</li>
               </Link>
-              <Link to="/ArticlesByTopic/">
+              {/* <Link to="/ArticlesByTopic/">
                 <li>Login</li>
-              </Link>
+              </Link> */}
               {/* <Link to="/topics">
                 <li>Topics</li>
               </Link> */}

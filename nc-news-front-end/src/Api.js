@@ -33,3 +33,13 @@ export const getCommentByArticleId = id => {
       return comments;
     });
 };
+
+export const patchArticles = (id, direction) => {
+  return axios.patch(`${url}/articles/${id}`, direction).then(article => {});
+};
+
+export const patchComments = (id, direction) => {
+  return axios.patch(`${url}/comments/${id}`, direction).then(comment => {
+    return comment;
+  });
+};

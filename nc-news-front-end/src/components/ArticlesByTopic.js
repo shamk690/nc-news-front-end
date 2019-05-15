@@ -5,10 +5,10 @@ import { getArticleList, getAllTopics } from "../Api";
 export default class ArticlesByTopic extends Component {
   state = {
     articleList: [],
-    topics: []
+    topic: ""
   };
   render() {
-    console.log("state   ", this.state.articleList);
+    console.log("props", this.props.topic);
     return (
       <div>
         <h1>articles by topics</h1>
@@ -24,11 +24,12 @@ export default class ArticlesByTopic extends Component {
     });
   }
 
-  getArticleByTopic = () => {
-    getAllTopics().then(topic => {
-      this.setState({ topics: topic });
-      console.log("topics   *** ", this.state.topics);
-    });
-    // console.log(this.state.topics);
-  };
-}
+  // getArticleByTopic = () => {
+  //   getAllTopics().then(topic => {
+  //     this.setState({ topics: topic });
+  //     console.log("topics   *** ", this.state.topics);
+  //   });
+  //   // console.log(this.state.topics);
+  // };
+
+  
