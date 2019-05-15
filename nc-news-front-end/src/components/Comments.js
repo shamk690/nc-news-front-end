@@ -27,7 +27,6 @@ export default class Comments extends Component {
   componentDidMount() {
     getCommentByArticleId(this.props.id).then(comments => {
       this.setState({ comments: comments });
-      console.log("mounted ", comments);
     });
   }
 }

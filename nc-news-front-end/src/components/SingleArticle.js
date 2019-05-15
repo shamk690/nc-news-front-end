@@ -25,7 +25,6 @@ export default class SingleArticle extends Component {
 
   componentDidMount() {
     getSingleArticle(this.props.article_id).then(article => {
-      console.log("article single  ", article);
       this.setState({ singleArticle: article });
     });
   }
