@@ -43,3 +43,7 @@ export const patchComments = (id, direction) => {
     return comment;
   });
 };
+
+export const sortBy = value => {
+  return axios.get(`${url}/articles?sort_by=${value}`);
+};

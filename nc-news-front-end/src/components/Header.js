@@ -5,9 +5,9 @@ export default class Header extends Component {
   render() {
     return (
       <header>
-        <div className="navContainer">
-          <h1 id="logo">NC-NEWS</h1>
+        <h1 id="logo">NC-NEWS</h1>
 
+        <div className="navContainer">
           <nav>
             <ul className="manubar">
               <Link to="/">
@@ -15,6 +15,15 @@ export default class Header extends Component {
               </Link>
               <Link to="/articles">
                 <li>Articles</li>
+              </Link>
+              <Link to="/">
+                <li>date created</li>
+              </Link>
+              <Link to="/">
+                <li>comment_count</li>
+              </Link>
+              <Link to="/">
+                <li>votes</li>
               </Link>
               {/* <Link to="/ArticlesByTopic/">
                 <li>Login</li>

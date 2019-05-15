@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { getSingleArticle, patchArticles } from "../Api";
+import { getSingleArticle } from "../Api";
 import Comments from "./Comments";
+import Voters from "./Voters";
 
 export default class SingleArticle extends Component {
   state = {
-    vote: 0,
-    singleArticle: [],
-    buttonClicked: false
+    singleArticle: []
   };
 
   render() {
@@ -19,19 +18,11 @@ export default class SingleArticle extends Component {
         {/* <p>{this.state.singleArticle.topic}</p> */}
         <p>{this.state.singleArticle.created_at}</p>
         <p>{this.state.singleArticle.body}</p>
-        <p>vote:{this.state.singleArticle.votes + this.state.vote}</p>
-        <button
-          onClick={() => this.handleClick(1)}
-          disabled={this.state.vote === 1}
-        >
-          vote up
-        </button>
-        <button
-          onClick={() => this.handleClick(-1)}
-          disabled={this.state.vote === -1}
-        >
-          vote down
-        </button>
+        <Voters
+          votes={this.state.singleArticle.votes}
+          id={this.state.singleArticle.article_id}
+          type="article"
+        />
 
         <Comments id={this.props.article_id} />
       </div>
@@ -41,17 +32,6 @@ export default class SingleArticle extends Component {
   componentDidMount() {
     getSingleArticle(this.props.article_id).then(article => {
       this.setState({ singleArticle: article });
-    });
-  }
-
-  handleClick(direction) {
-    patchArticles(this.props.article_id, { inc_votes: direction });
-    this.setState(prevState => {
-      const newVotes = prevState.vote + direction;
-      return {
-        vote: newVotes,
-        buttonClicked: true
-      };
     });
   }
 }

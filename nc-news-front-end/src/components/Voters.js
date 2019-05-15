@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { patchComments } from "../Api";
+import { patchComments, patchArticles } from "../Api";
 
 export default class Voters extends Component {
   state = { vote: 0 };
@@ -24,7 +24,11 @@ export default class Voters extends Component {
   }
 
   handleVotes(id, direction) {
-    patchComments(id, { inc_votes: direction });
+    if (this.props.type === "article") {
+      patchArticles(id, { inc_votes: direction });
+    } else {
+      patchComments(id, { inc_votes: direction });
+    }
     this.setState({ vote: this.state.vote + direction });
   }
 }

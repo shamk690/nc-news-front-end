@@ -11,7 +11,6 @@ export default class Comments extends Component {
       <div>
         <h1>Comments</h1>
         {this.state.comments.map(comment => {
-          console.log(comment);
           return (
             <div>
               {/* <p>{comment.comment_id}</p> */}

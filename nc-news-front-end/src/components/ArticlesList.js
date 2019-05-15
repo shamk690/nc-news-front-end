@@ -35,7 +35,7 @@ export default class ArticleList extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.path);
+    // console.log(this.props.path);
     const query = { topic: this.props.topic };
     getArticleList(query).then(articles => {
       this.setState({ articleList: articles });
@@ -44,7 +44,7 @@ export default class ArticleList extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    console.log(this.props);
+    // console.log(this.props);
     if (prevProps.topic !== this.props.topic) {
       const query = { topic: this.props.topic };
       getArticleList(query).then(articles => {
