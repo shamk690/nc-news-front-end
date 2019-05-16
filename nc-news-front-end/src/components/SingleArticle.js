@@ -9,7 +9,7 @@ export default class SingleArticle extends Component {
   };
 
   render() {
-    //console.log("dfdfds", this.state.author);
+    console.log("from single article", this.props.loggedInUser);
     return (
       <div>
         <p>{this.state.singleArticle.title}</p>

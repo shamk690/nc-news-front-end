@@ -23,13 +23,4 @@ export default class ArticlesByTopic extends Component {
       // console.log("mounted**** ", articles);
     });
   }
-
-  // getArticleByTopic = () => {
-  //   getAllTopics().then(topic => {
-  //     this.setState({ topics: topic });
-  //     console.log("topics   *** ", this.state.topics);
-  //   });
-  //   // console.log(this.state.topics);
-  // };
-
-  
+}

@@ -11,6 +11,7 @@ export default class ArticleList extends Component {
   };
 
   render() {
+    console.log("article list", this.props.loggedInUser);
     //const { location } = this.props;
     // console.log(location.search);
     return (

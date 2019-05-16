@@ -56,3 +56,9 @@ export const sortBy = query => {
       });
   }
 };
+
+export const getUser = username => {
+  return axios.get(`${url}/users/${username}`).then(({ data: { user } }) => {
+    return user;
+  });
+};

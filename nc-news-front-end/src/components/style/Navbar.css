@@ -39,3 +39,7 @@ nav {
   padding-top: 25px;
   color: white;
 }
+
+#loginListItem{
+padding:0.5em;
+}

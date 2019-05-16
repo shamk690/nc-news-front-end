@@ -8,43 +8,41 @@ import SingleArticle from "./components/SingleArticle";
 import Comments from "./components/Comments";
 
 class App extends Component {
-  state = {};
+  state = {
+    loggedInUser: ""
+  };
   componentDidMount() {
     // Api.getArticleList();
   }
   render() {
+    console.log("hi i am from app ", this.state.loggedInUser);
+    const { loggedInUser } = this.state;
     return (
       <div className="App">
-        <Header />
+        <Header loginUser={this.loginUser} />
         <Router>
           <ArticleList path="/" />
 
-          <ArticleList path="/articles" />
+          <ArticleList loggedInUser={loggedInUser} path="/articles" />
           <ArticleList path="/topics/:topic" />
 
-          <SingleArticle path="/articles/:article_id" />
+          <SingleArticle
+            path="/articles/:article_id"
+            loggedInUser={loggedInUser}
+          />
           {/* <Topics path="/topics" /> */}
           <Comments path="/articles/:article_id/comments" />
         </Router>
       </div>
     );
   }
+
+  loginUser = username => {
+    if (username) {
+      this.setState({ loggedInUser: username });
+      console.log("from app", username);
+    }
+  };
 }
 
 export default App;
-
-// ```http
-// GET /api/topics
-
-// GET /api/articles
-
-// GET /api/articles/:article_id
-// PATCH /api/articles/:article_id
-
-// GET /api/articles/:article_id/comments
-// POST /api/articles/:article_id/comments
-
-// PATCH /api/comments/:comment_id
-// DELETE /api/comments/:comment_id
-
-// GET /api/users/:username

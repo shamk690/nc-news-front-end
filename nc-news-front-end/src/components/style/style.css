@@ -31,3 +31,7 @@ h1 {
 #topicsList {
   list-style: none;
 }
+
+#loginForm {
+  margin-left: 47%;
+}
