@@ -7,8 +7,7 @@ import Topics from "./Topics";
 
 export default class ArticleList extends Component {
   state = {
-    articleList: [],
-    sortedList: ""
+    articleList: []
   };
 
   render() {
@@ -60,13 +59,14 @@ export default class ArticleList extends Component {
         // console.log("mounted ", articles);
       });
     } else if (prevProps.location.search !== this.props.location.search) {
-      console.log("search  ", this.props.location.search);
+      //console.log("search  ", this.props.location.search);
       sortBy(this.props.location.search).then(articles => {
         this.setState({ articleList: articles });
       });
+      this.props.location.search = "";
+      // console.log("searc", this.props.location.search);
     }
   };
 }
-
 //   getArticles() {}
 // }
