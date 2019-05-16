@@ -16,13 +16,13 @@ export default class Header extends Component {
               <Link to="/articles">
                 <li>Articles</li>
               </Link>
-              <Link to="/">
-                <li>date created</li>
+              <Link to="/articles?sort_by=created_at">
+                <li>created_at</li>
               </Link>
-              <Link to="/">
-                <li>comment_count</li>
+              <Link to="/articles?sort_by=comment_count">
+                <li>comment count</li>
               </Link>
-              <Link to="/">
+              <Link to="/articles?sort_by=votes">
                 <li>votes</li>
               </Link>
               {/* <Link to="/ArticlesByTopic/">

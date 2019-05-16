@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
 // import "./App.css";
-import { Router, Link } from "@reach/router";
-import * as Api from "./Api";
+import { Router } from "@reach/router";
 import ArticleList from "./components/ArticlesList";
 import SingleArticle from "./components/SingleArticle";
-import Topics from "./components/Topics";
+// import Topics from "./components/Topics";
 import Comments from "./components/Comments";
 
 class App extends Component {

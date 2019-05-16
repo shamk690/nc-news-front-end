@@ -1,4 +1,3 @@
-import React from "react";
 import axios from "axios";
 const url = "https://shamila-nc-news.herokuapp.com/api";
 
@@ -6,7 +5,7 @@ export const getArticleList = query => {
   return axios
     .get(`${url}/articles`, { params: query })
     .then(({ data: { articles } }) => {
-      // console.log("query   ", articles);
+      //   console.log("articles   ", articles);
       return articles;
     });
 };
@@ -44,6 +43,16 @@ export const patchComments = (id, direction) => {
   });
 };
 
-export const sortBy = value => {
-  return axios.get(`${url}/articles?sort_by=${value}`);
+export const sortBy = query => {
+  // console.log("api   ", typeof query);
+  if (query) {
+    return axios
+      .get(`${url}/articles${query}`, { params: query })
+      .then(({ data: { articles } }) => {
+        // console.log("sort by response api", articles);
+        //console.log(url);
+
+        return articles;
+      });
+  }
 };

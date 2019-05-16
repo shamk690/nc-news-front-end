@@ -12,7 +12,7 @@ export default class Comments extends Component {
         <h1>Comments</h1>
         {this.state.comments.map(comment => {
           return (
-            <div>
+            <div key={comment.comment_id}>
               {/* <p>{comment.comment_id}</p> */}
               {/* <p>{comment.created_at}</p> */}
               <p>commented by: {comment.author}</p>

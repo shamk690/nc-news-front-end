@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import * as Api from "../Api";
 import { Link } from "@reach/router";
 import "./style/style.css";
-import { getAllTopics } from "../Api";
+import { getAllTopics, sortBy } from "../Api";
 // import { calculateValue } from "../components/ArticlesByTopic";
 export default class Topics extends Component {
   state = {
@@ -10,7 +9,6 @@ export default class Topics extends Component {
   };
 
   render() {
-    // console.log("props   ", this.props);
     return (
       <div>
         <h1>Topics from article List</h1>
@@ -35,4 +33,15 @@ export default class Topics extends Component {
       this.setState({ topics: topic });
     });
   }
+
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   // console.log(this.props);
+  //   if (prevProps.topic !== this.props.topic) {
+  //     const query = { topic: this.props.topic };
+  //     getArticleList(query).then(articles => {
+  //       this.setState({ articleList: articles });
+  //       // console.log("mounted ", articles);
+  //     });
+  //   }
+  // };
 }
