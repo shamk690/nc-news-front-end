@@ -11,7 +11,6 @@ export default class ArticleList extends Component {
   };
 
   render() {
-    console.log("article list", this.props.loggedInUser);
     //const { location } = this.props;
     // console.log(location.search);
     return (
@@ -43,31 +42,25 @@ export default class ArticleList extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.path);
     const query = { topic: this.props.topic };
     getArticleList(query).then(articles => {
       this.setState({ articleList: articles });
-      // console.log("mounted ", articles);
     });
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    //console.log("updated ", this.props);
+    console.log("props for sortby", this.props);
     if (prevProps.topic !== this.props.topic) {
       const query = { topic: this.props.topic };
       getArticleList(query).then(articles => {
         this.setState({ articleList: articles });
-        // console.log("mounted ", articles);
       });
     } else if (prevProps.location.search !== this.props.location.search) {
-      //console.log("search  ", this.props.location.search);
+      console.log("search   ", this.props.location.search);
       sortBy(this.props.location.search).then(articles => {
         this.setState({ articleList: articles });
       });
       this.props.location.search = "";
-      // console.log("searc", this.props.location.search);
     }
   };
 }
-//   getArticles() {}
-// }

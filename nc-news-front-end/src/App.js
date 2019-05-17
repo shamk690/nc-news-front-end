@@ -6,20 +6,19 @@ import ArticleList from "./components/ArticlesList";
 import SingleArticle from "./components/SingleArticle";
 // import Topics from "./components/Topics";
 import Comments from "./components/Comments";
+import { navigate } from "@reach/router";
+import Login from "./components/Login";
 
 class App extends Component {
   state = {
     loggedInUser: ""
   };
-  componentDidMount() {
-    // Api.getArticleList();
-  }
+  componentDidMount() {}
   render() {
-    console.log("hi i am from app ", this.state.loggedInUser);
     const { loggedInUser } = this.state;
     return (
       <div className="App">
-        <Header loginUser={this.loginUser} />
+        <Header logOut={this.logOut} loggedInUser={this.state.loggedInUser} />
         <Router>
           <ArticleList path="/" />
 
@@ -32,6 +31,7 @@ class App extends Component {
           />
           {/* <Topics path="/topics" /> */}
           <Comments path="/articles/:article_id/comments" />
+          <Login path="/login" loginUser={this.loginUser} />
         </Router>
       </div>
     );
@@ -39,9 +39,11 @@ class App extends Component {
 
   loginUser = username => {
     if (username) {
-      this.setState({ loggedInUser: username });
-      console.log("from app", username);
+      this.setState({ loggedInUser: username }, () => navigate("/articles"));
     }
+  };
+  logOut = () => {
+    this.setState({ loggedInUser: "" }, () => navigate("/"));
   };
 }
 

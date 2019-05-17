@@ -5,28 +5,44 @@ import Voters from "./Voters";
 
 export default class SingleArticle extends Component {
   state = {
-    singleArticle: []
+    singleArticle: null
   };
 
   render() {
-    console.log("from single article", this.props.loggedInUser);
-    return (
-      <div>
-        <p>{this.state.singleArticle.title}</p>
-        {/* <p>{this.state.singleArticle.author}</p> */}
-        {/* <p>{this.state.singleArticle.article_id}</p> */}
-        {/* <p>{this.state.singleArticle.topic}</p> */}
-        <p>{this.state.singleArticle.created_at}</p>
-        <p>{this.state.singleArticle.body}</p>
-        <Voters
-          votes={this.state.singleArticle.votes}
-          id={this.state.singleArticle.article_id}
-          type="article"
-        />
+    if (this.state.singleArticle) {
+      return (
+        <div>
+          <p>{this.state.singleArticle.title}</p>
+          {/* <p>{this.state.singleArticle.author}</p> */}
+          {/* <p>{this.state.singleArticle.article_id}</p> */}
+          {/* <p>{this.state.singleArticle.topic}</p> */}
+          <p>{this.state.singleArticle.created_at}</p>
+          <p>{this.state.singleArticle.body}</p>
+          <form>
+            <input type="text" disabled={!this.props.loggedInUser} />
+            <button
+              onClick={this.postComment}
+              disabled={!this.props.loggedInUser}
+            >
+              post comment
+            </button>
+          </form>
+          <Voters
+            votes={this.state.singleArticle.votes}
+            loggedInUser={this.props.loggedInUser}
+            id={this.state.singleArticle.article_id}
+            type="article"
+          />
 
-        <Comments id={this.props.article_id} />
-      </div>
-    );
+          <Comments
+            id={this.props.article_id}
+            loggedInUser={this.props.loggedInUser}
+          />
+        </div>
+      );
+    } else {
+      return <h1>loading....</h1>;
+    }
   }
 
   componentDidMount() {
@@ -34,4 +50,6 @@ export default class SingleArticle extends Component {
       this.setState({ singleArticle: article });
     });
   }
+
+  postComment = () => {};
 }

@@ -45,16 +45,16 @@ export const patchComments = (id, direction) => {
 
 export const sortBy = query => {
   // console.log("api   ", typeof query);
-  if (query) {
-    return axios
-      .get(`${url}/articles${query}`, { params: query })
-      .then(({ data: { articles } }) => {
-        // console.log("sort by response api", articles);
-        //console.log(url);
 
-        return articles;
-      });
-  }
+  return axios
+    .get(`${url}/articles${query}`, { params: query })
+    .then(({ data: { articles } }) => {
+      // console.log("sort by response api", articles);
+      //console.log(url);
+
+      return articles;
+    });
+  // .catch({ message: "not found" });
 };
 
 export const getUser = username => {

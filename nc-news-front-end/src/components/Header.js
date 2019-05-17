@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { Router, Link } from "@reach/router";
 import "./style/Navbar.css";
-import LoginBox from "./LoginBox";
 export default class Header extends Component {
   state = {
     loginUser: ""
   };
 
   render() {
-    console.log("state of heaer   ", this.state.loginUser);
     return (
       <div>
         <header>
@@ -32,41 +30,23 @@ export default class Header extends Component {
                 <Link to="/articles?sort_by=votes">
                   <li>votes</li>
                 </Link>
-                {/* <Link to="/ArticlesByTopic/">
-                <li>Login</li>
-              </Link> */}
-                {/* <Link to="/topics">
-                <li>Topics</li>
-              </Link> */}
-                <Link to="/loginBox">
+
+                <Link to="/login">
                   {" "}
-                  {!this.state.loginUser && (
-                    <li id="loginListItem">login</li>
-                  )}{" "}
-                </Link>
-                <Link to="/articles">
-                  {this.state.loginUser && (
-                    <li>logout &nbsp;{this.state.loginUser}</li>
+                  {!this.props.loggedInUser ? (
+                    <li>login</li>
+                  ) : (
+                    <button onClick={this.props.logOut}>
+                      {" "}
+                      logOut {this.props.loggedInUser}
+                    </button>
                   )}{" "}
                 </Link>
               </ul>
             </nav>
           </div>
         </header>
-        <Router>
-          {/* <LoginBox /> */}
-          <LoginBox path="/loginBox" loginUser={this.loginUser} />
-        </Router>
       </div>
     );
   }
-
-  loginUser = user => {
-    console.log("from headr", this.state.loginUser);
-    if (user) {
-      console.log("hi from header ,", user);
-      this.props.loginUser(user);
-      this.setState({ loginUser: user });
-    }
-  };
 }

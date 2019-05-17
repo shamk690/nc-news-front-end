@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getCommentByArticleId } from "../Api";
 import Voters from "./Voters";
-
+import "./style/style.css";
 export default class Comments extends Component {
   state = {
     comments: []
@@ -20,6 +20,8 @@ export default class Comments extends Component {
               <Voters
                 votes={comment.votes}
                 id={comment.comment_id}
+                loggedInUser={this.props.loggedInUser}
+
                 // type="comment"
               />
             </div>
@@ -28,6 +30,7 @@ export default class Comments extends Component {
       </div>
     );
   }
+  singleCommnt;
 
   componentDidMount() {
     getCommentByArticleId(this.props.id).then(comments => {

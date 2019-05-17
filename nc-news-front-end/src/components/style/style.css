@@ -35,3 +35,7 @@ h1 {
 #loginForm {
   margin-left: 47%;
 }
+#singleComment {
+  background: #a7bdb6;
+  border: black solid;
+}
