@@ -49,14 +49,14 @@ export default class ArticleList extends Component {
   }
 
   componentDidUpdate = (prevProps, prevState) => {
-    console.log("props for sortby", this.props);
+    //console.log("props for sortby", this.props);
     if (prevProps.topic !== this.props.topic) {
       const query = { topic: this.props.topic };
       getArticleList(query).then(articles => {
         this.setState({ articleList: articles });
       });
     } else if (prevProps.location.search !== this.props.location.search) {
-      console.log("search   ", this.props.location.search);
+      // console.log("search   ", this.props.location.search);
       sortBy(this.props.location.search).then(articles => {
         this.setState({ articleList: articles });
       });

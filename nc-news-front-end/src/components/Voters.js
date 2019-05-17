@@ -4,7 +4,6 @@ import { patchComments, patchArticles } from "../Api";
 export default class Voters extends Component {
   state = { vote: 0 };
   render() {
-    console.log("voters props", this.props.loggedInUser);
     return (
       <div>
         <button

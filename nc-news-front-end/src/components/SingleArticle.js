@@ -14,19 +14,11 @@ export default class SingleArticle extends Component {
         <div>
           <p>{this.state.singleArticle.title}</p>
           {/* <p>{this.state.singleArticle.author}</p> */}
-          {/* <p>{this.state.singleArticle.article_id}</p> */}
+          <p>{this.state.singleArticle.article_id}</p>
           {/* <p>{this.state.singleArticle.topic}</p> */}
           <p>{this.state.singleArticle.created_at}</p>
           <p>{this.state.singleArticle.body}</p>
-          <form>
-            <input type="text" disabled={!this.props.loggedInUser} />
-            <button
-              onClick={this.postComment}
-              disabled={!this.props.loggedInUser}
-            >
-              post comment
-            </button>
-          </form>
+
           <Voters
             votes={this.state.singleArticle.votes}
             loggedInUser={this.props.loggedInUser}
@@ -50,6 +42,4 @@ export default class SingleArticle extends Component {
       this.setState({ singleArticle: article });
     });
   }
-
-  postComment = () => {};
 }

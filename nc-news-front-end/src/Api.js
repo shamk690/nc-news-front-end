@@ -1,4 +1,5 @@
 import axios from "axios";
+import PostComment from "./components/PostComment";
 const url = "https://shamila-nc-news.herokuapp.com/api";
 
 export const getArticleList = query => {
@@ -60,5 +61,21 @@ export const sortBy = query => {
 export const getUser = username => {
   return axios.get(`${url}/users/${username}`).then(({ data: { user } }) => {
     return user;
+  });
+};
+
+export const postComment = (id, body) => {
+  return axios
+    .post(`${url}/articles/${id}/comments`, body)
+    .then(({ data: { comment } }) => {
+      //  console.log("api", newComment);
+      console.log("respons", comment);
+      return comment;
+    });
+};
+
+export const deleteComment = id => {
+  return axios.delete(`${url}/comments/${id}`).then(({ data: { comment } }) => {
+    return comment;
   });
 };
