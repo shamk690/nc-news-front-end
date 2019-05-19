@@ -12,18 +12,20 @@ export default class Topics extends Component {
     return (
       <div>
         <h1>Topics from article List</h1>
-        <ul id="topicsList">
-          {this.state.topics.map((topic, index) => {
-            return (
-              <div id="topicsContainer" key={index}>
-                <Link to={`/topics/${topic.slug}`}>
-                  <li>{topic.slug}</li>
-                  <li>{topic.description}</li>
-                </Link>
-              </div>
-            );
-          })}
-        </ul>
+        <aside>
+          <ul id="topicsList">
+            {this.state.topics.map((topic, index) => {
+              return (
+                <div id="topicsContainer" key={index}>
+                  <Link to={`/topics/${topic.slug}`}>
+                    <li>{topic.slug}</li>
+                    <li>{topic.description}</li>
+                  </Link>
+                </div>
+              );
+            })}
+          </ul>
+        </aside>
       </div>
     );
   }

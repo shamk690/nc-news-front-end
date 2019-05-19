@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
-// import "./App.css";
+
 import { Router } from "@reach/router";
 import ArticleList from "./components/ArticlesList";
 import SingleArticle from "./components/SingleArticle";
@@ -8,6 +8,7 @@ import SingleArticle from "./components/SingleArticle";
 import Comments from "./components/Comments";
 import { navigate } from "@reach/router";
 import Login from "./components/Login";
+// import "../src/components/style/Navbar.css";
 
 class App extends Component {
   state = {
@@ -17,7 +18,7 @@ class App extends Component {
   render() {
     const { loggedInUser } = this.state;
     return (
-      <div className="App">
+      <div id="grid">
         <Header logOut={this.logOut} loggedInUser={this.state.loggedInUser} />
         <Router>
           <ArticleList path="/" />

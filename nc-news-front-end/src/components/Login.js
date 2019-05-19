@@ -9,14 +9,15 @@ export default class Login extends Component {
   };
   render() {
     return (
-      <div>
-        <h1 id="loginFormH1">Enter username</h1>
+      <div className="container">
         <form id="loginForm">
-          <input type="text" onChange={this.handleInput} />
-
-          <button type="onClick" onClick={this.handleSubmit}>
-            submit
-          </button>
+          <lable>
+            username:
+            <input type="text" onChange={this.handleInput} />
+            <button type="onClick" onClick={this.handleSubmit}>
+              submit
+            </button>
+          </lable>
         </form>
       </div>
     );

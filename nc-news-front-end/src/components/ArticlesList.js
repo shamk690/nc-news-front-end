@@ -14,26 +14,31 @@ export default class ArticleList extends Component {
     //const { location } = this.props;
     // console.log(location.search);
     return (
-      <div className="mainContainer">
-        <ul className="articleContainer">
-          {this.state.articleList.map(article => {
-            return (
-              <div key={article.article_id}>
-                {" "}
-                <p />
-                <Link to={`/articles/${article.article_id}`}>
-                  <li>{article.title}</li>
-                </Link>
-                <li>{article.created_at}</li>
-                <li>author: {article.author}</li>
-                <li>comments: {article.comment_count}</li>
-                <p>{article.body}</p>
-                <p>From {article.topic}</p>
-                <p>{article.votes}</p>
-              </div>
-            );
-          })}
-        </ul>
+      <div className="container">
+        <div className="content">
+          <article>
+            {this.state.articleList.map(article => {
+              return (
+                <div key={article.article_id}>
+                  {" "}
+                  <p />
+                  <Link
+                    className="title"
+                    to={`/articles/${article.article_id}`}
+                  >
+                    <h3>{article.title}</h3>
+                  </Link>
+                  <h4>{article.created_at}</h4>
+                  <h4>author: {article.author}</h4>
+                  <h4>comments: {article.comment_count}</h4>
+                  <p>{article.body}</p>
+                  <p>From {article.topic}</p>
+                  <p>{article.votes}</p>
+                </div>
+              );
+            })}
+          </article>
+        </div>
         <div className="topicsContainer">
           <Topics />
         </div>

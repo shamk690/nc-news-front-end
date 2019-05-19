@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Router, Link } from "@reach/router";
-import "./style/Navbar.css";
+import "./style/style.css";
+import logo from "./style/logo.png";
+
 export default class Header extends Component {
   state = {
     loginUser: ""
@@ -8,45 +10,61 @@ export default class Header extends Component {
 
   render() {
     return (
-      <div>
-        <header>
-          <h1 id="logo">&nbsp;NC-NEWS</h1>
+      <header className="header">
+        <div className="container">
+          <div className="logo">
+            <img src={logo} alt="" title="" />
+          </div>
 
-          <div className="navContainer">
-            <nav>
-              <ul className="manubar">
-                <Link to="/">
-                  <li>Home</li>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/" className="nav-link">
+                  <span className="home" />
+                  Home
                 </Link>
-                <Link to="/articles">
-                  <li>Articles</li>
+              </li>
+              <li>
+                <Link to="/articles" className="nav-link">
+                  <span className="articles" />
+                  Articles
                 </Link>
-                <Link to="/articles?sort_by=created_at">
-                  <li>created_at</li>
-                </Link>
-                <Link to="/articles?sort_by=comment_count">
-                  <li>comment count</li>
-                </Link>
-                <Link to="/articles?sort_by=votes">
-                  <li>votes</li>
-                </Link>
+              </li>
 
-                <Link to="/login">
+              <li>
+                <Link to="/articles?sort_by=created_at" className="nav-link">
+                  created_at
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/articles?sort_by=comment_count" className="nav-link">
+                  comment count
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/articles?sort_by=votes" className="nav-link">
+                  votes{" "}
+                </Link>
+              </li>
+              <li>
+                <Link to="/login" className="nav-link">
                   {" "}
                   {!this.props.loggedInUser ? (
-                    <li>login</li>
+                    <li> login</li>
                   ) : (
-                    <button onClick={this.props.logOut}>
+                    <button onClick={this.props.logOut} className="nav-link">
                       {" "}
                       logOut {this.props.loggedInUser}
                     </button>
                   )}{" "}
                 </Link>
-              </ul>
-            </nav>
-          </div>
-        </header>
-      </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
     );
   }
 }
