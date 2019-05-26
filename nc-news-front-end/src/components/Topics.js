@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import "./style/style.css";
-import { getAllTopics, sortBy } from "../Api";
+import { getAllTopics } from "../Api";
 // import { calculateValue } from "../components/ArticlesByTopic";
 export default class Topics extends Component {
   state = {
@@ -9,15 +9,18 @@ export default class Topics extends Component {
   };
 
   render() {
+    //  console.log("topics  ", this.state.topics);
+    // if (this.state.error) return <Error state={this.state.error} />;
+
     return (
-      <div>
-        <h1>Topics from article List</h1>
+      <div className="topic">
+        <h2>sort by topics</h2>
         <aside>
           <ul id="topicsList">
             {this.state.topics.map((topic, index) => {
               return (
                 <div id="topicsContainer" key={index}>
-                  <Link to={`/topics/${topic.slug}`}>
+                  <Link to={`/topics/${topic.slug}`} className="nav-link">
                     <li>{topic.slug}</li>
                     <li>{topic.description}</li>
                   </Link>

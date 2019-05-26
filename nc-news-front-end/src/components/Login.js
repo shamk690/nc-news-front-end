@@ -1,23 +1,27 @@
 import React, { Component } from "react";
 import "./style/style.css";
 import { getUser } from "../Api";
-import ArticleList from "./ArticlesList";
-import Topics from "./Topics";
+import { navigate } from "@reach/router";
+
 export default class Login extends Component {
   state = {
     userNameInput: ""
   };
   render() {
     return (
-      <div className="container">
+      <div className="grid">
         <form id="loginForm">
-          <lable>
-            username:
-            <input type="text" onChange={this.handleInput} />
-            <button type="onClick" onClick={this.handleSubmit}>
-              submit
-            </button>
-          </lable>
+          Username:{" "}
+          <input
+            type="text"
+            onChange={this.handleInput}
+            name="usrname"
+            required
+            placeholder="username"
+          />
+          <button type="onClick" onClick={this.handleSubmit}>
+            submit
+          </button>
         </form>
       </div>
     );
@@ -29,9 +33,17 @@ export default class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-
-    getUser(this.state.userNameInput).then(user => {
-      this.props.loginUser(user.username);
-    });
+    this.state.userNameInput === ""
+      ? alert("please enter username")
+      : getUser(this.state.userNameInput)
+          .then(user => {
+            this.props.loginUser(user.username);
+          })
+          .catch(({ response: { data, status } }) => {
+            navigate("/error", {
+              state: { from: "user", msg: " not found ", status },
+              replace: true
+            });
+          });
   };
 }

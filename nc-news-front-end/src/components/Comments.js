@@ -10,12 +10,12 @@ export default class Comments extends Component {
   render() {
     return (
       <div>
-        <h1>Comments</h1>
         <PostComment
           loggedInUser={this.props.loggedInUser}
           addNewComment={this.addNewComment}
           id={this.props.id}
         />
+        <h1>Comments</h1>
 
         {this.state.comments.map(comment => {
           return (

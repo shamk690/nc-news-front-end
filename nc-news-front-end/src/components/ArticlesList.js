@@ -4,6 +4,7 @@ import { getArticleList, sortBy } from "../Api";
 import { Link } from "@reach/router";
 import "./style/style.css";
 import Topics from "./Topics";
+import { navigate } from "@reach/router";
 
 export default class ArticleList extends Component {
   state = {
@@ -12,60 +13,72 @@ export default class ArticleList extends Component {
 
   render() {
     //const { location } = this.props;
-    // console.log(location.search);
-    return (
-      <div className="container">
-        <div className="content">
-          <article>
-            {this.state.articleList.map(article => {
+    // console.log("search   ", this.props.location.search);
+    // console.log(this.props);
+    if (this.state.articleList.length) {
+      return (
+        <div className="grid">
+          <div className="item3">
+            {this.state.articleList.map((article, index) => {
               return (
-                <div key={article.article_id}>
+                <div className="article" key={article.article_id}>
                   {" "}
                   <p />
-                  <Link
-                    className="title"
-                    to={`/articles/${article.article_id}`}
-                  >
-                    <h3>{article.title}</h3>
+                  <Link to={`/articles/${article.article_id}`} className="link">
+                    <p id="title">{article.title}</p>
                   </Link>
-                  <h4>{article.created_at}</h4>
-                  <h4>author: {article.author}</h4>
-                  <h4>comments: {article.comment_count}</h4>
-                  <p>{article.body}</p>
-                  <p>From {article.topic}</p>
-                  <p>{article.votes}</p>
+                  <p className="article-info">author: {article.author}</p>
+                  <p className="article-info">
+                    {" "}
+                    comments: {article.comment_count}
+                  </p>
+                  <p className="article-info" id="topic">
+                    From: {article.topic}
+                  </p>
+                  <p id="vote">votes: {article.votes}</p>
+                  <p id="body">{article.body}</p>
+                  <p id="date">{article.created_at}</p>{" "}
                 </div>
               );
             })}
-          </article>
+          </div>
+          <div className="item4">
+            <Topics />
+          </div>
+          <footer className="item5" />
         </div>
-        <div className="topicsContainer">
-          <Topics />
-        </div>
-      </div>
-    );
+      );
+    } else {
+      return <h1>loading....</h1>;
+    }
   }
 
-  componentDidMount() {
+  componentDidMount(prevProp) {
     const query = { topic: this.props.topic };
-    getArticleList(query).then(articles => {
-      this.setState({ articleList: articles });
-    });
+    getArticleList(query)
+      .then(articles => {
+        this.setState({ articleList: articles });
+      })
+      .catch(({ response: { data, status } }) => {
+        navigate("/error", {
+          state: { from: "topic", msg: "resourse not found ", status },
+          replace: true
+        });
+      });
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
-    //console.log("props for sortby", this.props);
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.topic !== this.props.topic) {
       const query = { topic: this.props.topic };
       getArticleList(query).then(articles => {
         this.setState({ articleList: articles });
       });
     } else if (prevProps.location.search !== this.props.location.search) {
-      // console.log("search   ", this.props.location.search);
+      //console.log("search   ", this.props.location.search);
       sortBy(this.props.location.search).then(articles => {
         this.setState({ articleList: articles });
       });
       this.props.location.search = "";
     }
-  };
+  }
 }

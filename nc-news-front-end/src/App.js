@@ -4,11 +4,10 @@ import Header from "./components/Header";
 import { Router } from "@reach/router";
 import ArticleList from "./components/ArticlesList";
 import SingleArticle from "./components/SingleArticle";
-// import Topics from "./components/Topics";
 import Comments from "./components/Comments";
 import { navigate } from "@reach/router";
 import Login from "./components/Login";
-// import "../src/components/style/Navbar.css";
+import Error from "./components/Error";
 
 class App extends Component {
   state = {
@@ -16,9 +15,11 @@ class App extends Component {
   };
   componentDidMount() {}
   render() {
+    console.log("app ", this.props);
+
     const { loggedInUser } = this.state;
     return (
-      <div id="grid">
+      <div>
         <Header logOut={this.logOut} loggedInUser={this.state.loggedInUser} />
         <Router>
           <ArticleList path="/" />
@@ -33,6 +34,7 @@ class App extends Component {
           {/* <Topics path="/topics" /> */}
           <Comments path="/articles/:article_id/comments" />
           <Login path="/login" loginUser={this.loginUser} />
+          <Error path="/error" />
         </Router>
       </div>
     );

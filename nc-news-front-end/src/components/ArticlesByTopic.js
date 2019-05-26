@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import * as Api from "../Api";
+// import * as Api from "../Api";
 import { getArticleList, getAllTopics } from "../Api";
 
 export default class ArticlesByTopic extends Component {

@@ -2,16 +2,20 @@ import React, { Component } from "react";
 import { getSingleArticle } from "../Api";
 import Comments from "./Comments";
 import Voters from "./Voters";
+import "./style/style.css";
+import { navigate } from "@reach/router";
 
 export default class SingleArticle extends Component {
   state = {
+    error: null,
     singleArticle: null
   };
 
   render() {
+    // if (this.state.error) return <Error state={this.state.error} />;
     if (this.state.singleArticle) {
       return (
-        <div>
+        <div className="singleArticle">
           <p>{this.state.singleArticle.title}</p>
           {/* <p>{this.state.singleArticle.author}</p> */}
           <p>{this.state.singleArticle.article_id}</p>
@@ -38,8 +42,17 @@ export default class SingleArticle extends Component {
   }
 
   componentDidMount() {
-    getSingleArticle(this.props.article_id).then(article => {
-      this.setState({ singleArticle: article });
-    });
+    getSingleArticle(this.props.article_id)
+      .then(article => {
+        this.setState({ singleArticle: article });
+      })
+      .catch(({ response: { data, status } }) => {
+        console.log(data, "res");
+
+        navigate("/error", {
+          state: { from: "article", msg: "resourse not found ", status },
+          replace: true
+        });
+      });
   }
 }
