@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-// import * as Api from "../Api";
-import { getArticleList, sortBy } from "../Api";
+import { getArticleList, sortBy, deleteArticle } from "../Api";
 import { Link } from "@reach/router";
+
 import "./style/style.css";
 import Topics from "./Topics";
 import { navigate } from "@reach/router";
@@ -14,7 +14,8 @@ export default class ArticleList extends Component {
   render() {
     //const { location } = this.props;
     // console.log("search   ", this.props.location.search);
-    // console.log(this.props);
+    //console.log("articlelist", this.props);
+
     if (this.state.articleList.length) {
       return (
         <div className="grid">
@@ -38,6 +39,12 @@ export default class ArticleList extends Component {
                   <p id="vote">votes: {article.votes}</p>
                   <p id="body">{article.body}</p>
                   <p id="date">{article.created_at}</p>{" "}
+                  <button
+                    disabled={this.props.loggedInUser !== article.author}
+                    onClick={() => this.handleDelete(article.article_id)}
+                  >
+                    Delete
+                  </button>
                 </div>
               );
             })}
@@ -45,6 +52,8 @@ export default class ArticleList extends Component {
           <div className="item4">
             <Topics />
           </div>
+          {/* <PostArticle addNewArticle={this.addNewArticle} /> */}
+
           <footer className="item5" />
         </div>
       );
@@ -81,4 +90,27 @@ export default class ArticleList extends Component {
       this.props.location.search = "";
     }
   }
+  addNewArticle = () => {
+    //addNewArticle = article => {
+    // console.log("called");
+    // this.setState(prevState => {
+    //   const newArticle = prevState.articleList.map(article => {
+    //     // console.log(article, "list");
+    //     return { ...article };
+    //   });
+    //   return { articleList: [article, ...newArticle] };
+    // });
+    this.props.addNewArticle(this.state.articleList);
+  };
+
+  handleDelete = id => {
+    console.log("id  ", id);
+    deleteArticle(id).then(() => {
+      const filterArticle = this.state.articleList.filter(article => {
+        return article.article_id !== id;
+      });
+      this.setState({ articleList: filterArticle });
+      //  this.props.deleteUserArticle(this.state.articleList);
+    });
+  };
 }

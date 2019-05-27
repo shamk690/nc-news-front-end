@@ -277,6 +277,54 @@ ul {
 .topic ul .nav-link {
   text-decoration: none;
 }
+
+/* *********style for article form *********/
+
+fieldset {
+  /* margin-top: 1em;
+  margin-bottom: 1em; */
+  padding-top: 0.5em;
+  margin: 3.125em;
+}
+legend {
+  color: #d8b0bd;
+  font-weight: bold;
+  font-size: 85%;
+  margin-bottom: 0.5em;
+}
+label {
+  float: left;
+  max-width: 12em;
+  text-align: right;
+}
+label,
+input,
+select {
+  font-size: 90%;
+}
+input,
+select,
+textarea {
+  width: 15em;
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+}
+input:required,
+input[required] {
+  border: 3px solid d8b0bd;
+}
+input:valid {
+  border: 1px solid black;
+}
+input:invalid {
+  box-shadow: none;
+}
+br {
+  clear: both;
+}
+#buttons input {
+  width: 10em;
+}
 @media only screen and (max-width: 479px) {
 }
 @media only screen and (max-width: 488px) {
@@ -290,23 +338,15 @@ ul {
   .item1 header h1 {
     display: block;
   }
+  label {
+    float: none;
+    text-align: center;
+    width: 15em;
+  }
 }
 
 @media only screen and(max-width:380px) {
   body {
     text-align: center;
   }
-  /* .item1 header h1 {
-  
-  } */
-
-  /* .item2 .navbar .nav-link {
-    text-align: left;
-    font-weight: bold;
-    color: #403f3e;
-  }
-  .dropbtn {
-    color: #403f3e;
-    font-weight: 0.1em;
-  } */
 }

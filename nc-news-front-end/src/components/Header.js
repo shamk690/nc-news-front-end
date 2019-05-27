@@ -26,9 +26,17 @@ export default class Header extends Component {
               Home
             </Link>
 
-            <Link to="/articles" className="nav-link">
-              Articles
-            </Link>
+            <div className="dropdown">
+              <button className="dropbtn">Articles</button>
+              <div className="dropdown-content">
+                <Link to="/articles" className="nav-link">
+                  Articles
+                </Link>
+                <Link to="/newarticle" className="nav-link">
+                  Add New Article
+                </Link>
+              </div>
+            </div>
 
             <div className="dropdown">
               <button className="dropbtn">Sort by</button>

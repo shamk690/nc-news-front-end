@@ -59,13 +59,21 @@ export const getUser = username => {
     return user;
   });
 };
+export const submitArticle = body => {
+  //console.log(body);
+
+  return axios.post(`${url}/articles/`, body).then(({ data: { article } }) => {
+    // console.log("from api", article);
+    return article;
+  });
+};
 
 export const postComment = (id, body) => {
   return axios
     .post(`${url}/articles/${id}/comments`, body)
     .then(({ data: { comment } }) => {
       //  console.log("api", newComment);
-      console.log("respons", comment);
+      // console.log("respons", comment);
       return comment;
     });
 };
@@ -73,5 +81,12 @@ export const postComment = (id, body) => {
 export const deleteComment = id => {
   return axios.delete(`${url}/comments/${id}`).then(({ data: { comment } }) => {
     return comment;
+  });
+};
+
+export const deleteArticle = id => {
+  return axios.delete(`${url}/articles/${id}`).then(({ data: { article } }) => {
+    console.log("article deleted", article);
+    return article;
   });
 };

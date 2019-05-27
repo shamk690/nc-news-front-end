@@ -8,10 +8,12 @@ import Comments from "./components/Comments";
 import { navigate } from "@reach/router";
 import Login from "./components/Login";
 import Error from "./components/Error";
+import PostArticle from "./components/PostArticle";
 
 class App extends Component {
   state = {
-    loggedInUser: ""
+    loggedInUser: "",
+    newList: []
   };
   componentDidMount() {}
   render() {
@@ -24,7 +26,12 @@ class App extends Component {
         <Router>
           <ArticleList path="/" />
 
-          <ArticleList loggedInUser={loggedInUser} path="/articles" />
+          <ArticleList
+            loggedInUser={loggedInUser}
+            path="/articles"
+            addNewArticle={this.addNewArticle}
+            // deleteUserArticle={this.deleteUserArticle}
+          />
           <ArticleList path="/topics/:topic" />
 
           <SingleArticle
@@ -35,6 +42,12 @@ class App extends Component {
           <Comments path="/articles/:article_id/comments" />
           <Login path="/login" loginUser={this.loginUser} />
           <Error path="/error" />
+
+          <PostArticle
+            path="/newarticle"
+            loggedInUser={loggedInUser}
+            addNewArticle={this.addNewArticle}
+          />
         </Router>
       </div>
     );
@@ -48,6 +61,16 @@ class App extends Component {
   logOut = () => {
     this.setState({ loggedInUser: "" }, () => navigate("/"));
   };
+
+  addNewArticle = newList => {
+    this.setState({ newList: newList }, () => navigate("/articles"));
+    console.log("newlist", newList);
+  };
+
+  // deleteUserArticle = list => {
+  //   console.log(list);
+  //   this.setState({ newList: list });
+  // };
 }
 
 export default App;

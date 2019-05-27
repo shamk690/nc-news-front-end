@@ -49,4 +49,8 @@ export default class Topics extends Component {
   //     });
   //   }
   // };
+
+  sendTopicToPostArticles() {
+    this.props.getTopic(this.state.topics);
+  }
 }
