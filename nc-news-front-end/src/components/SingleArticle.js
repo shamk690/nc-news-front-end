@@ -12,14 +12,12 @@ export default class SingleArticle extends Component {
   };
 
   render() {
-    // if (this.state.error) return <Error state={this.state.error} />;
     if (this.state.singleArticle) {
       return (
         <div className="singleArticle">
-          <p>{this.state.singleArticle.title}</p>
-          {/* <p>{this.state.singleArticle.author}</p> */}
-          <p>{this.state.singleArticle.article_id}</p>
-          {/* <p>{this.state.singleArticle.topic}</p> */}
+          <p id="title">{this.state.singleArticle.title}</p>
+          <p>ID : {this.state.singleArticle.article_id}</p>
+          <p> Topic: {this.state.singleArticle.topic}</p>
           <p>{this.state.singleArticle.created_at}</p>
           <p>{this.state.singleArticle.body}</p>
 

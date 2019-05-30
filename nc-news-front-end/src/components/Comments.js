@@ -9,34 +9,32 @@ export default class Comments extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="item3">
         <PostComment
           loggedInUser={this.props.loggedInUser}
           addNewComment={this.addNewComment}
           id={this.props.id}
         />
-        <h1>Comments</h1>
+        <h1 id="h1Comment">Comments</h1>
 
         {this.state.comments.map(comment => {
           return (
-            <div key={comment.comment_id}>
-              {/* <p>{comment.comment_id}</p> */}
-              {/* <p>{comment.created_at}</p> */}
-              <p>commented by: {comment.author}</p>
+            <div className="comments" key={comment.comment_id}>
+              <p id="title">commented by: {comment.author}</p>
               <p>{comment.body}</p>
               <Voters
                 votes={comment.votes}
                 id={comment.comment_id}
                 loggedInUser={this.props.loggedInUser}
-
-                // type="comment"
               />
-              <button
-                disabled={this.props.loggedInUser !== comment.author}
-                onClick={() => this.handleDelete(comment.comment_id)}
-              >
-                Delete
-              </button>
+              {this.props.loggedInUser === comment.author && (
+                <button
+                  disabled={this.props.loggedInUser !== comment.author}
+                  onClick={() => this.handleDelete(comment.comment_id)}
+                >
+                  Delete
+                </button>
+              )}
             </div>
           );
         })}
@@ -60,7 +58,6 @@ export default class Comments extends Component {
   };
 
   handleDelete = id => {
-    console.log("id  ", id);
     deleteComment(id).then(() => {
       const filterComment = this.state.comments.filter(comment => {
         return comment.comment_id !== id;

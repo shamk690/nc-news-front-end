@@ -4,13 +4,15 @@
 
 body {
   margin: 3.125em;
-  background-attachment: #fafafa;
+  background-color: #fafafa;
+
   /* max-width: 1000px;
   width: 90%; */
 }
 
 .grid {
   /* min-width: 400px; */
+  background: #fafafa;
   margin: 0 auto;
   min-width: 200px;
   width: 90%;
@@ -21,7 +23,6 @@ body {
     "main main main main right right"
     "footer footer footer footer footer footer";
   grid-gap: 1rem;
-  background-color: white;
   padding: 0rem;
   text-align: justify;
 
@@ -70,7 +71,41 @@ img {
   border-radius: 5px;
   height: 90px;
 }
+.article {
+  /* border: #d8b0bd solid; */
+  border: #e2e2e2 solid;
+  border-radius: 5px;
+  margin: 2em;
+  padding: 2em;
+  background: white;
+}
+.article .comments {
+  background-color: #fafafa;
+  padding: 2em;
+  margin: 2em;
+  /* border: #e2e2e2 solid; */
+}
 
+.article #readArticle {
+  float: right;
+  text-decoration: none;
+}
+/* .topic {
+  background: white;
+  border: solid #ffffff;
+  border-radius: 5px;
+} */
+
+#topicsContainer {
+  background: white;
+  margin: 0.4em;
+  border: #e2e2e2 solid;
+  border-radius: 5px;
+  /* padding: 2em; */
+}
+.topic h2 {
+  background: #fafafa;
+}
 /**********************/
 
 .navbar {
@@ -105,15 +140,15 @@ nav .nav-link {
 .dropdown:hover .dropbtn {
   background-color: lightslategray;
 }
-.navbar .nav-link:hover {
+/* .navbar .nav-link:hover {
   border-bottom: black solid;
-}
+} */
 .dropdown-content {
   display: none;
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); */
   z-index: 1;
 }
 
@@ -171,9 +206,10 @@ ul {
 }
 /* tablet portrait to standard 960 */
 @media only screen and (max-width: 960px) {
-  .grid > .item3 > .article:nth-child(even) {
-    box-shadow: 5px 10px #888888;
-  }
+  /* .grid > .item3 > .article:nth-child(even) {
+    /* box-shadow: 5px 10px #888888; */
+  /* background: #ddd; */
+  /*} 
   /* .item3 .article .article-info {
     padding-top: 0.1em;
   } */
@@ -187,6 +223,7 @@ ul {
   }
   .item3 .article #date {
     padding-bottom: 1em;
+    text-align: center;
   }
   .item3 .article #body {
     margin-right: 30px;
@@ -204,18 +241,29 @@ ul {
 
   .item4 ul li:hover {
     text-decoration: none;
-    background-color: lightslategray;
+    /* background-color: lightslategray; */
     color: white;
-    border-bottom: black solid;
+    /* border-bottom: black solid; */
     z-index: 1;
   }
   .item4 h2 {
     color: white;
     text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
   }
+  .article #readArticle {
+    float: none;
+    display: block;
+  }
+  .article #deleteArticle {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 1em;
+    display: block;
+  }
 }
 
-@media only screen and (max-width: 764px) {
+@media only screen and (max-width: 775px) {
   .grid {
     grid-template: repeat(5, auto) / 1fr;
     grid-template-areas:
@@ -227,7 +275,7 @@ ul {
   }
   /* i */
   header {
-    background: white;
+    /* background: white; */
     display: grid;
     grid-template: repeat(2, auto) / 1fr;
     grid-gap: 0.5em;
@@ -325,12 +373,18 @@ br {
 #buttons input {
   width: 10em;
 }
-@media only screen and (max-width: 479px) {
+/* #topicsList li {
+  /* text-align: center; */
+
+#topicsContainer {
+  padding: 1em;
 }
+
 @media only screen and (max-width: 488px) {
   body {
     margin: 1em;
   }
+
   .item3 .article #body {
     padding: 0 2em;
     text-align: center;
@@ -343,10 +397,59 @@ br {
     text-align: center;
     width: 15em;
   }
+  .article #readArticle {
+    float: none;
+    display: block;
+  }
+  .article #deleteArticle {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 1em;
+    display: block;
+  }
+  /* #topicsList li {
+    padding: 2em;
+  } */
 }
 
 @media only screen and(max-width:380px) {
   body {
     text-align: center;
   }
+}
+.singleArticle #title {
+  text-decoration: none;
+  color: white;
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+}
+.singleArticle {
+  margin: 0 auto;
+  min-width: 200px;
+  width: 90%;
+}
+#postCommentBtn {
+  margin: 0 4em;
+}
+.item3 .comments {
+  background: white;
+  border: #e2e2e2 solid;
+  border-radius: 5px;
+  padding: 4em;
+  margin: 2em auto;
+  /* width: 50%; */
+}
+.item3 #h1Comment {
+  margin: 2em auto;
+  font-size: 2.2rem;
+}
+
+.comments #title,
+.item3 #h1Comment {
+  text-decoration: none;
+  color: white;
+  text-shadow: 0 0 3px #ff0000, 0 0 5px #0000ff;
+  font-size: 1.5rem;
 }

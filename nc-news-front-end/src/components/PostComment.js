@@ -9,17 +9,23 @@ export default class PostComment extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            name="comment"
-            required
-            disabled={!this.props.loggedInUser}
-            placeholder="Enter comment"
-            onChange={this.handleInput}
-          />
-          <button disabled={!this.props.loggedInUser}>post comment</button>
-        </form>
+        {this.props.loggedInUser && (
+          <form onSubmit={this.handleSubmit}>
+            <textarea
+              maxlength="300"
+              rows="12"
+              cols="80"
+              type="text"
+              name="comment"
+              required
+              placeholder="Enter Comment"
+              onChange={this.handleInput}
+              value={this.state.userInput}
+            />
+            <br />
+            <button id="postCommentBtn">Post Comment</button>
+          </form>
+        )}
       </div>
     );
   }
@@ -39,5 +45,6 @@ export default class PostComment extends Component {
     postComment(this.props.id, body).then(comment => {
       this.props.addNewComment(comment);
     });
+    this.setState({ userInput: "" });
   };
 }

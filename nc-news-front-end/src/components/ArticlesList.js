@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { getArticleList, sortBy, deleteArticle } from "../Api";
 import { Link } from "@reach/router";
+import Moment from "react-moment";
+import "moment-timezone";
 
 import "./style/style.css";
 import Topics from "./Topics";
@@ -8,19 +10,21 @@ import { navigate } from "@reach/router";
 
 export default class ArticleList extends Component {
   state = {
-    articleList: []
+    articleList: [],
   };
 
   render() {
-    //const { location } = this.props;
-    // console.log("search   ", this.props.location.search);
-    //console.log("articlelist", this.props);
-
-    if (this.state.articleList.length) {
+    const { articleList } = this.state;
+    if (articleList.length) {
       return (
         <div className="grid">
+          {!this.props.topic ? (
+            <h1>All Articles</h1>
+          ) : (
+            <h1>{this.props.topic}</h1>
+          )}
           <div className="item3">
-            {this.state.articleList.map((article, index) => {
+            {articleList.map((article, index) => {
               return (
                 <div className="article" key={article.article_id}>
                   {" "}
@@ -37,14 +41,22 @@ export default class ArticleList extends Component {
                     From: {article.topic}
                   </p>
                   <p id="vote">votes: {article.votes}</p>
-                  <p id="body">{article.body}</p>
-                  <p id="date">{article.created_at}</p>{" "}
-                  <button
-                    disabled={this.props.loggedInUser !== article.author}
-                    onClick={() => this.handleDelete(article.article_id)}
-                  >
-                    Delete
-                  </button>
+                  {/* <p id="body">{article.body}</p> */}
+                  <p id="date">
+                    <Moment locale="en">{article.created_at}</Moment>
+                  </p>{" "}
+                  {this.props.loggedInUser === article.author && (
+                    <button
+                      id="deleteArticle"
+                      // disabled={this.props.loggedInUser !== article.author}
+                      onClick={() => this.handleDelete(article.article_id)}
+                    >
+                      Delete
+                    </button>
+                  )}{" "}
+                  <Link to={`/articles/${article.article_id}`} id="readArticle">
+                    Read This Article
+                  </Link>
                 </div>
               );
             })}
@@ -52,7 +64,6 @@ export default class ArticleList extends Component {
           <div className="item4">
             <Topics />
           </div>
-          {/* <PostArticle addNewArticle={this.addNewArticle} /> */}
 
           <footer className="item5" />
         </div>
@@ -80,28 +91,15 @@ export default class ArticleList extends Component {
     if (prevProps.topic !== this.props.topic) {
       const query = { topic: this.props.topic };
       getArticleList(query).then(articles => {
-        this.setState({ articleList: articles });
+        this.setState({ articleList: articles});
       });
     } else if (prevProps.location.search !== this.props.location.search) {
-      //console.log("search   ", this.props.location.search);
       sortBy(this.props.location.search).then(articles => {
         this.setState({ articleList: articles });
       });
       this.props.location.search = "";
     }
   }
-  addNewArticle = () => {
-    //addNewArticle = article => {
-    // console.log("called");
-    // this.setState(prevState => {
-    //   const newArticle = prevState.articleList.map(article => {
-    //     // console.log(article, "list");
-    //     return { ...article };
-    //   });
-    //   return { articleList: [article, ...newArticle] };
-    // });
-    this.props.addNewArticle(this.state.articleList);
-  };
 
   handleDelete = id => {
     console.log("id  ", id);
@@ -110,7 +108,6 @@ export default class ArticleList extends Component {
         return article.article_id !== id;
       });
       this.setState({ articleList: filterArticle });
-      //  this.props.deleteUserArticle(this.state.articleList);
     });
   };
 }

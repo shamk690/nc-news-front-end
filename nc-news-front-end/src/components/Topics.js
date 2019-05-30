@@ -19,12 +19,14 @@ export default class Topics extends Component {
           <ul id="topicsList">
             {this.state.topics.map((topic, index) => {
               return (
-                <div id="topicsContainer" key={index}>
-                  <Link to={`/topics/${topic.slug}`} className="nav-link">
-                    <li>{topic.slug}</li>
+                <Link to={`/topics/${topic.slug}`} className="nav-link">
+                  <div id="topicsContainer" key={index} className="nav-link">
+                    <br />
+                    <li> Topic: &nbsp;{topic.slug}</li>
+                    <br />
                     <li>{topic.description}</li>
-                  </Link>
-                </div>
+                  </div>{" "}
+                </Link>
               );
             })}
           </ul>
@@ -50,7 +52,7 @@ export default class Topics extends Component {
   //   }
   // };
 
-  sendTopicToPostArticles() {
-    this.props.getTopic(this.state.topics);
-  }
+  // sendTopicToPostArticles() {
+  //   this.props.getTopic(this.state.topics);
+  // }
 }

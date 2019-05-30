@@ -5,7 +5,8 @@ import { navigate } from "@reach/router";
 
 export default class Login extends Component {
   state = {
-    userNameInput: ""
+    userNameInput: "",
+    savePassword: ""
   };
   render() {
     return (
@@ -18,7 +19,14 @@ export default class Login extends Component {
             name="usrname"
             required
             placeholder="username"
-          />
+          />{" "}
+          {/* <input
+            type="checkbox"
+            name="checkbox"
+            onChange={this.handleCheckBox}
+            // value={this.state.savePassword}
+            checked={this.state.savePassword}
+          /> */}
           <button type="onClick" onClick={this.handleSubmit}>
             submit
           </button>
@@ -30,6 +38,17 @@ export default class Login extends Component {
   handleInput = e => {
     this.setState({ userNameInput: e.target.value });
   };
+  // handleCheckBox = e => {
+  //   if (e.target.checked) {
+  //     console.log("checked");
+  //     this.setState({ savePassword: "checked" });
+  //     //this.props.savePass(e.target.checked);
+  //   }
+
+  //   this.props.savePass(e.target.checked);
+
+  //   console.log(this.state.savePassword);
+  // };
 
   handleSubmit = e => {
     e.preventDefault();

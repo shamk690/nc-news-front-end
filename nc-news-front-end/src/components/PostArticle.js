@@ -18,67 +18,67 @@ export default class PostArticle extends Component {
         <form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend>Important Information</legend>
-            <label label for="author">
-              Author:
-            </label>
+            <label>Author:</label>
             <input
               type="author"
               name="author"
               id="author"
-              autofocus
+              autoFocus
               required
-              value={this.props.loggedInUser}
+              disabled
+              defaultValue={this.props.loggedInUser}
               placeholder="username"
             />
             <br />
-            <label for="title">Title:</label>
+            <label>Title:</label>
             <input
               type="title"
               name="title"
               id="title"
               required
-              onChange={this.getTitle}
+              onChange={this.handleInput}
               placeholder="title"
             />
             <br />
-            <label for="topic">Topic:</label>
+            <label>Topic:</label>
             <select
               disabled={!this.props.loggedInUser}
               name="topic"
               id="topic"
               topic={this.state.topic}
-              onChange={this.getAllTopics}
+              onChange={this.handleInput}
               required
             >
-              <option disabled selected value>
-                {" "}
-                -- select an option --{" "}
-              </option>
+              <option defaultValue> -- select an option -- </option>
               {this.state.topics.map((topic, index) => {
-                return <option topic={this.state.topic}>{topic.slug}</option>;
+                return (
+                  <option key={index} name="topic" topic={this.state.topic}>
+                    {topic.slug}
+                  </option>
+                );
               })}
             </select>
             <br />
           </fieldset>
           <fieldset>
-            <legend>Article Area</legend>
-            <label for="article">Article:</label>
+            <legend>Write Article</legend>
+            <label>Article:</label>
 
             <textarea
               disabled={!this.props.loggedInUser}
               placeholder={
                 !this.props.loggedInUser
-                  ? "Please login to right article"
-                  : "Right Article"
+                  ? "Please login to write an article"
+                  : "Write Article"
               }
               rows="12"
               cols="80"
               type="article"
-              name="article"
+              name="body"
               id="starting_date"
               required
               value={this.state.body}
-              onChange={this.getBody}
+              onChange={this.handleInput}
             />
 
             <br />
@@ -94,21 +94,7 @@ export default class PostArticle extends Component {
   }
 
   handleInput = e => {
-    this.setState({ author: e.target.value });
-  };
-  getTitle = e => {
-    this.setState({ title: e.target.value });
-  };
-
-  getBody = e => {
-    this.setState({ body: e.target.value });
-  };
-  // getTopic = e => {
-  //   this.setState({ topic: e.target.value });
-  // };
-  getAllTopics = e => {
-    this.setState({ topic: e.target.value });
-    console.log(this.state.topic);
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   handleSubmit = e => {

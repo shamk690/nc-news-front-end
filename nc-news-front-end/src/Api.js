@@ -3,6 +3,7 @@ import axios from "axios";
 const url = "https://shamila-nc-news.herokuapp.com/api";
 
 export const getArticleList = query => {
+  console.log("query  ", query);
   return axios
     .get(`${url}/articles`, { params: query })
     .then(({ data: { articles } }) => {
@@ -86,7 +87,7 @@ export const deleteComment = id => {
 
 export const deleteArticle = id => {
   return axios.delete(`${url}/articles/${id}`).then(({ data: { article } }) => {
-    console.log("article deleted", article);
+    //console.log("article deleted", article);
     return article;
   });
 };
