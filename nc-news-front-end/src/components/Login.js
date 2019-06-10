@@ -12,7 +12,11 @@ export default class Login extends Component {
     return (
       <div className="grid">
         <form id="loginForm">
-          Username:{" "}
+          <p>
+            Please enter 'jessjelly' to roam around the site and read articles
+            OR enter your username
+          </p>
+          Username:
           <input
             type="text"
             onChange={this.handleInput}

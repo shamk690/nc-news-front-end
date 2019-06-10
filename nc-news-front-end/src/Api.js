@@ -3,9 +3,11 @@ import axios from "axios";
 const url = "https://shamila-nc-news.herokuapp.com/api";
 
 export const getArticleList = query => {
-  console.log("query  ", query);
+  // console.log("qqqq", query);
   return axios
+
     .get(`${url}/articles`, { params: query })
+
     .then(({ data: { articles } }) => {
       return articles;
     });
@@ -42,14 +44,9 @@ export const patchComments = (id, direction) => {
 };
 
 export const sortBy = query => {
-  // console.log("api   ", typeof query);
-
   return axios
     .get(`${url}/articles${query}`, { params: query })
     .then(({ data: { articles } }) => {
-      // console.log("sort by response api", articles);
-      //console.log(this.props.location.search);
-
       return articles;
     });
   // .catch({ message: "not found" });
@@ -61,10 +58,7 @@ export const getUser = username => {
   });
 };
 export const submitArticle = body => {
-  //console.log(body);
-
   return axios.post(`${url}/articles/`, body).then(({ data: { article } }) => {
-    // console.log("from api", article);
     return article;
   });
 };
@@ -73,8 +67,6 @@ export const postComment = (id, body) => {
   return axios
     .post(`${url}/articles/${id}/comments`, body)
     .then(({ data: { comment } }) => {
-      //  console.log("api", newComment);
-      // console.log("respons", comment);
       return comment;
     });
 };
@@ -87,7 +79,6 @@ export const deleteComment = id => {
 
 export const deleteArticle = id => {
   return axios.delete(`${url}/articles/${id}`).then(({ data: { article } }) => {
-    //console.log("article deleted", article);
     return article;
   });
 };

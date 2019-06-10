@@ -12,7 +12,7 @@ export default class PostComment extends Component {
         {this.props.loggedInUser && (
           <form onSubmit={this.handleSubmit}>
             <textarea
-              maxlength="300"
+              maxLength="300"
               rows="12"
               cols="80"
               type="text"

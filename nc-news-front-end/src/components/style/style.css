@@ -9,7 +9,14 @@ body {
   /* max-width: 1000px;
   width: 90%; */
 }
+h1 {
+  text-transform: capitalize;
+}
 
+#selectLimit {
+  margin: 0 auto;
+  width: 30%;
+}
 .grid {
   /* min-width: 400px; */
   background: #fafafa;
@@ -71,6 +78,10 @@ img {
   border-radius: 5px;
   height: 90px;
 }
+/* .item3:first-child {
+  /* background-color: rgb(155, 155, 142); */
+/* background: yellow; */
+/* } */
 .article {
   /* border: #d8b0bd solid; */
   border: #e2e2e2 solid;
@@ -275,7 +286,8 @@ ul {
   }
   /* i */
   header {
-    /* background: white; */
+    background-color: #fafafa;
+
     display: grid;
     grid-template: repeat(2, auto) / 1fr;
     grid-gap: 0.5em;
@@ -290,6 +302,7 @@ ul {
     display: block;
     padding-left: 2em;
   }
+
   .item2 .navbar .nav-link,
   .login {
     font-weight: bold;
@@ -378,6 +391,7 @@ br {
 
 #topicsContainer {
   padding: 1em;
+  text-transform: capitalize;
 }
 
 @media only screen and (max-width: 488px) {

@@ -19,7 +19,11 @@ export default class Topics extends Component {
           <ul id="topicsList">
             {this.state.topics.map((topic, index) => {
               return (
-                <Link to={`/topics/${topic.slug}`} className="nav-link">
+                <Link
+                  to={`/topics/${topic.slug}`}
+                  className="nav-link"
+                  key={index}
+                >
                   <div id="topicsContainer" key={index} className="nav-link">
                     <br />
                     <li> Topic: &nbsp;{topic.slug}</li>
