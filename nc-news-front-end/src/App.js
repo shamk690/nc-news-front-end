@@ -11,6 +11,11 @@ import Login from "./components/Login";
 import Error from "./components/Error";
 import PostArticle from "./components/PostArticle";
 import "../src/components/style/style.css";
+import GetUsers from "./components/GetUsers";
+import ArticlesByUsers from "./components/ArticlesByUsers";
+import PostUser from "./components/PostUser";
+import Topics from "./components/Topics";
+import PostTopic from "./components/PostTopic";
 class App extends Component {
   state = {
     loggedInUser: "",
@@ -26,12 +31,16 @@ class App extends Component {
         <Router>
           <ArticleList path="/" />
           <ArticleList loggedInUser={loggedInUser} path="/articles" />
+          <GetUsers loggedInUser={loggedInUser} path="/users" />
+          <ArticlesByUsers path="/users/:username/articles" />
           <ArticleList path="/topics/:topic" />
           <SingleArticle
             path="/articles/:article_id"
             loggedInUser={loggedInUser}
           />
-          {/* <Topics path="/topics" /> */}
+          <Topics path="/topics" />
+          <PostUser path="/postUser" loggedInUser={loggedInUser} />
+          <PostTopic path="/postTopic" loggedInUser={loggedInUser} />
           <Comments path="/articles/:article_id/comments" />
           <Login path="/login" loginUser={this.loginUser} />
           <Error path="/error" />
@@ -46,8 +55,6 @@ class App extends Component {
   }
 
   loginUser = (username, url) => {
-    // const { loc } = this.state.location.state.uri;
-
     if (username) {
       this.setState({ loggedInUser: username }, () => navigate("/articles"));
     }
@@ -75,10 +82,10 @@ class App extends Component {
     }
   };
 
-  if(data) {
-    const state = JSON.parse(data);
-    this.setState(state);
-  }
+  // if(data) {
+  //   const state = JSON.parse(data);
+  //   this.setState(state);
+  // }
 
   componentDidUpdate = () => {
     this.saveData();

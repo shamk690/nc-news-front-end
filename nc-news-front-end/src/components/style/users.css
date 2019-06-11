@@ -1,0 +1,23 @@
+.users {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: space-around;
+}
+.content {
+  flex: 0 1 calc(25% - 1em);
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  min-height: 200px;
+  margin: 6px 4px;
+  padding: 4px 4px;
+  color: rgb(27, 27, 27);
+  background-color: white;
+  transition: all 0.2s ease-in-out;
+}
+
+.content:hover {
+  transform: scale(1.1);
+}

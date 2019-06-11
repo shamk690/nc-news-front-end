@@ -32,7 +32,6 @@ export default class ArticleList extends Component {
           <div className="item3">
             <label>Total Result {this.state.total_count}</label>
             {this.limitArticlesPerPage()}
-            {/* <button onClick={() => this.fetchArticles()}>submit</button> */}
             {articleList.map((article, index) => {
               return (
                 <div className="article" key={article.article_id}>
@@ -88,7 +87,6 @@ export default class ArticleList extends Component {
             <Topics />
             <br />
           </div>
-          {/* code for pagination starts here */}
           <footer className="item5" />
         </div>
       );
@@ -119,11 +117,6 @@ export default class ArticleList extends Component {
       };
 
       getArticleList(query).then(articles => {
-        // this.state.limit === this.state.total_count ||
-        // (articles.length < this.state.limit && !this.state.back)
-        //   ? this.setState({ response: false })
-        //   : this.setState({ response: true });
-
         this.setState({
           page: 0,
           articleList: articles,
@@ -268,9 +261,10 @@ export default class ArticleList extends Component {
           //   articles[0].total_count
           // }to `
         }));
-        console.log("after setstat=", this.state.page);
+        // console.log("after setstat=", this.state.page);
       })
       .catch(({ response: { data, status } }) => {
+        console.log(this.props, "props");
         navigate("/error", {
           state: { from: "topic", msg: "resourse not found ", status },
           replace: true

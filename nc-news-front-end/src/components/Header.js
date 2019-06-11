@@ -40,7 +40,7 @@ export default class Header extends Component {
               </div>
 
               <div className="dropdown">
-                <button className="dropbtn">Sort Article</button>
+                <button className="dropbtn">Sort Articles</button>
                 <div className="dropdown-content">
                   <Link to="/articles?sort_by=created_at" className="nav-link">
                     Date
@@ -56,6 +56,33 @@ export default class Header extends Component {
                   </Link>
                 </div>
               </div>
+
+              <div className="dropdown">
+                <button className="dropbtn">Authors</button>
+                <div className="dropdown-content">
+                  <Link to="/users" className="nav-link" id="login">
+                    {" "}
+                    View User
+                  </Link>
+                  <Link to="/postUser" className="nav-link">
+                    Add New User
+                  </Link>
+                </div>
+              </div>
+
+              <div className="dropdown">
+                <button className="dropbtn">Topics</button>
+                <div className="dropdown-content">
+                  <Link to="/topics" className="nav-link" id="login">
+                    {" "}
+                    View Topics
+                  </Link>
+                  <Link to="/postTopic" className="nav-link">
+                    Add New Topic
+                  </Link>
+                </div>
+              </div>
+
               <Link to="/login" className="nav-link" id="login">
                 {" "}
                 {!this.props.loggedInUser ? (

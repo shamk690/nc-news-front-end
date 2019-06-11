@@ -82,3 +82,23 @@ export const deleteArticle = id => {
     return article;
   });
 };
+
+export const getAllUsers = query => {
+  return axios
+    .get(`${url}/users`, { params: query })
+    .then(({ data: { users } }) => {
+      return users;
+    });
+};
+
+export const postUser = body => {
+  return axios.post(`${url}/users`, body).then(({ data: { user } }) => {
+    return user;
+  });
+};
+
+export const postTopic = body => {
+  return axios.post(`${url}/topics`, body).then(({ data: { topic } }) => {
+    return topic;
+  });
+};
