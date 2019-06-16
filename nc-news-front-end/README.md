@@ -1,7 +1,7 @@
-NC News front end app application
-This front end is supported by the Restful API Which is hosted on Heroku.
-NC-NEWS is an online forum where users can post view articles on various topics. Users can also delete their own articles/comments post vote and comment on these if they are logged in.
-Articles can be posted on already existed topic or new topic can be created or added by the author.
+NC News front end application
+This front end is supported by the Restful API which is hosted on Heroku.
+NC-NEWS is an online forum where users can post or view articles on various topics. Users can also delete their own articles/comments, post, vote and comment on these if they are logged in.
+Articles can be posted on an existing topic or new topic can be created or added by the author.
 New author can be added with its avatar_url and all the existing author can be view as well.
 
 Links to hosted versions

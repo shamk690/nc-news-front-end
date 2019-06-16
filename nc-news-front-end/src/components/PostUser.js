@@ -12,7 +12,7 @@ export default class PostUser extends Component {
   render() {
     return (
       <div className="item3">
-        <h2 id="title">Add New Article</h2>
+        <h2 id="title">Add New Author</h2>
 
         <form onSubmit={this.handleSubmit}>
           <fieldset>

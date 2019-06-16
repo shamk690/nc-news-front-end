@@ -3,7 +3,6 @@ import { getArticleList, sortBy, deleteArticle } from "../Api";
 import { Link } from "@reach/router";
 import Moment from "react-moment";
 import "moment-timezone"; //
-
 import "./style/style.css";
 import Topics from "./Topics";
 import { navigate } from "@reach/router";
@@ -130,7 +129,7 @@ export default class ArticleList extends Component {
                 : true,
             totalPage:
               articles.length > 1 || prevState.totalPage === 0
-                ? Math.ceil(articles[0].total_count / limit) + 1
+                ? Math.ceil(articles[0].total_count / limit)
                 : 1,
             pageNum: 1
           });
@@ -189,13 +188,13 @@ export default class ArticleList extends Component {
     );
   };
   handleSubmit = e => {
-    const { limit, total_count } = this.state;
+    // const { limit, total_count } = this.state;
     e.preventDefault();
-    this.setState({
+    this.setState(prevState => ({
       page: 0,
-      totalPage: Math.ceil(total_count / limit) + 1,
+      totalPage: 0,
       pageNum: 1
-    });
+    }));
     this.fetchArticles();
   };
   handlepageChangeClick = direction => {
@@ -208,21 +207,20 @@ export default class ArticleList extends Component {
         back: true,
         pageNum: pageNum - 1
       }));
-      console.log("in direction", direction);
 
       this.fetchArticles({ p: this.state.page - limit });
     } else {
-      console.log("else handle page change", direction);
       this.setState(prevState => ({
         back: false,
         pageNum: pageNum + 1
       }));
-      this.fetchArticles({ p: this.state.page + direction });
+
+      this.fetchArticles({ p: this.state.page });
     }
   };
   fetchArticles = (params = { p: 0 }) => {
-    console.log("[in fetch articles", this.props.location.search);
     const { p } = params;
+
     this.setState({
       response: this.state.limit === this.state.total_count ? false : true
       // back: this.state.pageNum === 1 ? false : true
@@ -240,7 +238,6 @@ export default class ArticleList extends Component {
         p
       );
     } else {
-      console.log("total", this.state.total_count);
       const { search } = this.props.location;
       let query = `?limit=${this.state.limit}&p=${p}`;
       if (search) query = search;
@@ -253,7 +250,7 @@ export default class ArticleList extends Component {
         this.setState(prevState => ({
           articleList: articles,
           page: !prevState.back
-            ? Number(prevState.page + (prevState.limit - 1))
+            ? Number(prevState.page) + Number(prevState.limit)
             : Number(prevState.page),
           total_count:
             prevState.total_count === 0
@@ -261,7 +258,7 @@ export default class ArticleList extends Component {
               : prevState.total_count,
           totalPage:
             prevState.total_count === 0 || prevState.totalPage === 0
-              ? Math.ceil(articles[0].total_count / prevState.limit) + 1
+              ? Math.ceil(articles[0].total_count / prevState.limit)
               : prevState.totalPage
         }));
       });
@@ -278,7 +275,7 @@ export default class ArticleList extends Component {
         this.setState(prevState => ({
           articleList: articles,
           page: !prevState.back
-            ? Number(prevState.page + prevState.limit - 1)
+            ? Number(prevState.page) + Number(prevState.limit)
             : Number(prevState.page),
           total_count:
             prevState.total_count === 0
