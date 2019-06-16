@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
-// import { Route } from "react-router-dom";
 
 import { Router } from "@reach/router";
 import ArticleList from "./components/ArticlesList";
@@ -23,7 +22,6 @@ class App extends Component {
   };
 
   render() {
-    console.log("app ", this.props.location);
     const { loggedInUser } = this.state;
     return (
       <div className="maninContainer">
@@ -67,7 +65,6 @@ class App extends Component {
     this.setState({ article: article }, () =>
       navigate(`/articles/${article.article_id}`)
     );
-    console.log("newlist", article);
   };
 
   saveData = () => {
@@ -81,11 +78,6 @@ class App extends Component {
       this.setState(state);
     }
   };
-
-  // if(data) {
-  //   const state = JSON.parse(data);
-  //   this.setState(state);
-  // }
 
   componentDidUpdate = () => {
     this.saveData();

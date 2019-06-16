@@ -27,6 +27,7 @@ export default class PostTopic extends Component {
               onChange={this.handleInput}
               placeholder="Topic"
             />
+
             <br />
             <label>Description:</label>
             <input

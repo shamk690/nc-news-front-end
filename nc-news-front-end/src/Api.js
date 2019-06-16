@@ -3,7 +3,6 @@ import axios from "axios";
 const url = "https://shamila-nc-news.herokuapp.com/api";
 
 export const getArticleList = query => {
-  // console.log("qqqq", query);
   return axios
 
     .get(`${url}/articles`, { params: query })
@@ -48,8 +47,8 @@ export const sortBy = query => {
     .get(`${url}/articles${query}`, { params: query })
     .then(({ data: { articles } }) => {
       return articles;
-    });
-  // .catch({ message: "not found" });
+    })
+    .catch({ message: "not found" });
 };
 
 export const getUser = username => {

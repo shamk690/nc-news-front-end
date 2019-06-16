@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getArticleList, sortBy, deleteArticle } from "../Api";
 import { Link } from "@reach/router";
 import Moment from "react-moment";
-import "moment-timezone";
+import "moment-timezone"; //
 
 import "./style/style.css";
 import Topics from "./Topics";
@@ -13,14 +13,16 @@ export default class ArticleList extends Component {
     total_count: 0,
     back: false,
     limit: 10,
-    page: 0, //default pagew
+    page: 0, //default page
     response: true,
-    prevPage: 0
+    pageNum: 1,
+    totalPage: 0
   };
 
   render() {
     const { articleList } = this.state;
-
+    const { pageNum } = this.state;
+    const { totalPage } = this.state;
     if (articleList.length) {
       return (
         <div className="grid">
@@ -68,20 +70,24 @@ export default class ArticleList extends Component {
                 </div>
               );
             })}{" "}
-            <button
-              disabled={
-                this.state.page < this.state.limit || this.props.location.search
-              }
-              onClick={() => this.handlepageChangeClick(-1)}
-            >
-              Back
-            </button>
-            <button
-              disabled={!this.state.response}
-              onClick={() => this.handlepageChangeClick(1)}
-            >
-              Next
-            </button>
+            <div>
+              <button
+                disabled={this.state.page < this.state.limit || pageNum === 1}
+                onClick={() => this.handlepageChangeClick(-1)}
+              >
+                Back
+              </button>
+              <button
+                disabled={!this.state.response || pageNum === totalPage}
+                onClick={() => this.handlepageChangeClick(1)}
+              >
+                Next
+              </button>
+
+              <p>
+                Page {pageNum} of {totalPage}
+              </p>
+            </div>
           </div>
           <div className="item4">
             <Topics />
@@ -97,18 +103,13 @@ export default class ArticleList extends Component {
 
   componentDidMount(prevProp) {
     this.fetchTotalCount();
-    const query = { topic: this.props.topic };
-    this.selectArticles(query, 0);
   }
 
   fetchTotalCount = () => {
-    sortBy(`?limit=1&p=0`).then(articles => {
-      this.setState({
-        total_count: articles[0].total_count
-      });
-    });
+    this.fetchArticles();
   };
   componentDidUpdate(prevProps, prevState) {
+    const { limit } = this.state;
     if (prevProps.topic !== this.props.topic) {
       const query = {
         topic: this.props.topic,
@@ -116,27 +117,36 @@ export default class ArticleList extends Component {
         p: 0
       };
 
-      getArticleList(query).then(articles => {
-        this.setState({
-          page: 0,
-          articleList: articles,
-          total_count: articles[0].total_count,
-          response:
-            this.state.limit === this.state.total_count ||
-            (articles.length < this.state.limit && !this.state.back)
-              ? false
-              : true
+      getArticleList(query)
+        .then(articles => {
+          this.setState({
+            page: 0,
+            articleList: articles,
+            total_count: articles[0].total_count,
+            response:
+              this.state.limit === this.state.total_count ||
+              (articles.length < this.state.limit && !this.state.back)
+                ? false
+                : true,
+            totalPage:
+              articles.length > 1 || prevState.totalPage === 0
+                ? Math.ceil(articles[0].total_count / limit) + 1
+                : 1,
+            pageNum: 1
+          });
+        })
+        .catch(({ response: { data, status } }) => {
+          navigate("/error", {
+            state: { msg: "This topic does not have any article yet ", status },
+            replace: true
+          });
         });
-      });
     } else if (prevProps.location.search !== this.props.location.search) {
-      sortBy(this.props.location.search).then(articles => {
-        this.setState({
-          page: 0,
-          articleList: articles
-        });
-      });
-      this.props.location.search = "";
+      // this.setState({ page: this.state.page });
+      this.fetchArticles(this.props.location.search);
+      // this.props.location.search = "";
     }
+    this.props.location.search = "";
   }
 
   handleDelete = id => {
@@ -147,12 +157,11 @@ export default class ArticleList extends Component {
       });
       this.setState({
         articleList: filterArticle
-        //  total_count: this.state.total_count - 1
       });
     });
   };
 
-  ///////////code for pagination///////////////////
+  ///////////code for pagination//////////////////
 
   handleChange = event => {
     this.setState({ limit: event.target.value });
@@ -166,7 +175,6 @@ export default class ArticleList extends Component {
           <br />
           <br />
           <input
-            // disabled={this.props.location.search}
             type="number"
             id="selectLimit"
             min="5"
@@ -181,39 +189,45 @@ export default class ArticleList extends Component {
     );
   };
   handleSubmit = e => {
+    const { limit, total_count } = this.state;
     e.preventDefault();
-    this.setState({ page: 0 });
+    this.setState({
+      page: 0,
+      totalPage: Math.ceil(total_count / limit) + 1,
+      pageNum: 1
+    });
     this.fetchArticles();
   };
   handlepageChangeClick = direction => {
+    const { pageNum } = this.state;
+
     if (direction < 0) {
-      console.log("directions -1 inside if", this.state.page);
       const { limit } = this.state;
       this.setState(prevState => ({
         page: prevState.page - prevState.limit,
-        back: true
+        back: true,
+        pageNum: pageNum - 1
       }));
+      console.log("in direction", direction);
 
       this.fetchArticles({ p: this.state.page - limit });
     } else {
+      console.log("else handle page change", direction);
       this.setState(prevState => ({
-        back: false
+        back: false,
+        pageNum: pageNum + 1
       }));
       this.fetchArticles({ p: this.state.page + direction });
     }
   };
   fetchArticles = (params = { p: 0 }) => {
+    console.log("[in fetch articles", this.props.location.search);
     const { p } = params;
-
-    // this.state.limit === this.state.total_count
-    //   ? this.setState({ response: false })
-    //   : this.setState({ response: true });
-
     this.setState({
       response: this.state.limit === this.state.total_count ? false : true
+      // back: this.state.pageNum === 1 ? false : true
     });
     if (this.props.topic) {
-      console.log("topic", p);
       const query = {
         topic: this.props.topic,
         limit: +this.state.limit,
@@ -226,25 +240,35 @@ export default class ArticleList extends Component {
         p
       );
     } else {
-      sortBy(`?limit=${this.state.limit}&p=${p}`).then(articles => {
+      console.log("total", this.state.total_count);
+      const { search } = this.props.location;
+      let query = `?limit=${this.state.limit}&p=${p}`;
+      if (search) query = search;
+      sortBy(query).then(articles => {
         if (articles.length < this.state.limit && !this.state.back) {
-          this.setState(prevState => ({ response: false }));
+          this.setState(prevState => ({
+            response: false
+          }));
         }
-        console.log(this.state.page, "before adding");
-
         this.setState(prevState => ({
           articleList: articles,
           page: !prevState.back
             ? Number(prevState.page + (prevState.limit - 1))
-            : Number(prevState.page)
+            : Number(prevState.page),
+          total_count:
+            prevState.total_count === 0
+              ? articles[0].total_count
+              : prevState.total_count,
+          totalPage:
+            prevState.total_count === 0 || prevState.totalPage === 0
+              ? Math.ceil(articles[0].total_count / prevState.limit) + 1
+              : prevState.totalPage
         }));
-        console.log(this.state.page, "after adding");
       });
     }
   };
 
   selectArticles = (query, page) => {
-    console.log("before setstate", this.state.page);
     getArticleList(query)
       .then(articles => {
         if (articles.length < this.state.limit && !this.state.back) {
@@ -254,19 +278,21 @@ export default class ArticleList extends Component {
         this.setState(prevState => ({
           articleList: articles,
           page: !prevState.back
-            ? Number(prevState.page + (prevState.limit - 1))
-            : Number(prevState.page)
-
-          // total_count: `${this.state.total_count} displaying ${
-          //   articles[0].total_count
-          // }to `
+            ? Number(prevState.page + prevState.limit - 1)
+            : Number(prevState.page),
+          total_count:
+            prevState.total_count === 0
+              ? articles[0].total_count
+              : prevState.total_count,
+          totalPage:
+            prevState.totalPage === 0
+              ? Math.ceil(articles[0].total_count / prevState.limit)
+              : prevState.totalPage
         }));
-        // console.log("after setstat=", this.state.page);
       })
       .catch(({ response: { data, status } }) => {
-        console.log(this.props, "props");
         navigate("/error", {
-          state: { from: "topic", msg: "resourse not found ", status },
+          state: { msg: "resourse not found ", status },
           replace: true
         });
       });
